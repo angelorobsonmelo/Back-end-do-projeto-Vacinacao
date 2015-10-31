@@ -13,7 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.vacinacao.bo.vacina.impl.CampanhaBO;
+import br.com.vacinacao.dao.usuario.impl.UsuarioDAO;
 import br.com.vacinacao.excecao.BOException;
+import br.com.vacinacao.model.usuario.UsuarioVO;
 import br.com.vacinacao.model.vacina.CampanhaVO;
 import br.com.vacinacao.resource.util.ExecucaoResource;
 import br.com.vacinacao.resource.vacina.ICampanhaResource;
@@ -27,6 +29,7 @@ public class CampanhaResource implements ICampanhaResource {
 	private CampanhaVO campanha;
 	private ArrayList<ExecucaoResource> listaExecucaoResource;
 	private ExecucaoResource execucaoResource;
+	UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 	public CampanhaResource() {
 		campanhaBO = new CampanhaBO();
@@ -49,6 +52,21 @@ public class CampanhaResource implements ICampanhaResource {
 			execucaoResource.setResultado(campanhaBO.salvar(campanha));
 
 			listaExecucaoResource.add(execucaoResource);
+			
+			if (execucaoResource.getResultado().equals("OK")) {
+				
+				ArrayList<UsuarioVO> listaDeUsuarios = usuarioDAO.buscarTodos();
+				
+				for (UsuarioVO usuarioVO : listaDeUsuarios) {
+					
+					System.out.println(usuarioVO.getNome() + "\n" + campanha.getDescricao());
+				}
+				
+				
+			} else {
+
+			}
+			
 
 			return listaExecucaoResource;
 

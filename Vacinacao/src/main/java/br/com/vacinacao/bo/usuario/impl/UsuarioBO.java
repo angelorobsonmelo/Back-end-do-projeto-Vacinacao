@@ -100,4 +100,16 @@ public class UsuarioBO implements IUsuarioBO {
 		}
 	}
 
+	public ArrayList<UsuarioVO> buscarTodos() throws BOException, SQLException {
+		try {
+
+			/*Setar o AutoCommit para False, validar toda a transação antes do Commit*/
+			Conexao.setarAutoCommitParaFalse();
+
+			return usuarioDAO.buscarTodos();
+		} catch (Exception e) {
+			throw new BOException(e);
+		}
+	}
+
 }
