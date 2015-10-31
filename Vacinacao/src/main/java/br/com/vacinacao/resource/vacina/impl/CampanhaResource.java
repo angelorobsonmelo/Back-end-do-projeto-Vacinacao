@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import br.com.vacinacao.bo.vacina.impl.CampanhaBO;
 import br.com.vacinacao.dao.usuario.impl.UsuarioDAO;
 import br.com.vacinacao.excecao.BOException;
+import br.com.vacinacao.metodos.push.POST2GCM;
+import br.com.vacinacao.model.push.Content;
 import br.com.vacinacao.model.usuario.UsuarioVO;
 import br.com.vacinacao.model.vacina.CampanhaVO;
 import br.com.vacinacao.resource.util.ExecucaoResource;
@@ -52,21 +54,24 @@ public class CampanhaResource implements ICampanhaResource {
 			execucaoResource.setResultado(campanhaBO.salvar(campanha));
 
 			listaExecucaoResource.add(execucaoResource);
-			
+
 			if (execucaoResource.getResultado().equals("OK")) {
-				
+
 				ArrayList<UsuarioVO> listaDeUsuarios = usuarioDAO.buscarTodos();
-				
+
 				for (UsuarioVO usuarioVO : listaDeUsuarios) {
-					
+
 					System.out.println(usuarioVO.getNome() + "\n" + campanha.getDescricao());
+
+					enviarNotificacao(usuarioVO.getRegId(), "Vacinação", campanha.getTitulo() + "\n" + campanha.getDescricao());
+
 				}
-				
-				
+
+
 			} else {
 
 			}
-			
+
 
 			return listaExecucaoResource;
 
@@ -139,7 +144,7 @@ public class CampanhaResource implements ICampanhaResource {
 
 			listaExecucaoResource.clear();
 
-			
+
 
 			return campanhaBO.consultarTodos();
 
@@ -172,6 +177,27 @@ public class CampanhaResource implements ICampanhaResource {
 			execucaoResource = null;
 			campanhaBO = null;
 		}
+	}
+
+	public void enviarNotificacao(String regId, String titulo, String descricao){
+
+
+		String apiKey = "AIzaSyBYxpEBG10XKLQ83h_iHcCVkkdvEy0fs_c";
+
+		Content content = createContent(regId, titulo, descricao);
+
+		POST2GCM.post(apiKey, content);
+
+	}
+
+	public static Content createContent(String regId, String titulo, String descricao){
+
+		Content c = new Content();
+
+		c.addRegId(regId);
+		c.createData(titulo, descricao);
+
+		return c;
 	}
 
 
