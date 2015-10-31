@@ -21,6 +21,7 @@ import br.com.vacinacao.model.usuario.UsuarioVO;
 import br.com.vacinacao.model.vacina.CampanhaVO;
 import br.com.vacinacao.resource.util.ExecucaoResource;
 import br.com.vacinacao.resource.vacina.ICampanhaResource;
+import br.com.vacinacao.util.EnviarNotificacao;
 
 
 @Path("campanha")
@@ -62,7 +63,7 @@ public class CampanhaResource implements ICampanhaResource {
 				for (UsuarioVO usuarioVO : listaDeUsuarios) {
 
 
-					enviarNotificacao(usuarioVO.getRegId(), campanha.getTitulo(), campanha.getDescricao());
+					EnviarNotificacao.enviarNotificacao(usuarioVO.getRegId(), campanha.getTitulo(), campanha.getDescricao());
 
 				}
 
@@ -178,26 +179,7 @@ public class CampanhaResource implements ICampanhaResource {
 		}
 	}
 
-	public void enviarNotificacao(String regId, String titulo, String descricao){
-
-
-		String apiKey = "AIzaSyBYxpEBG10XKLQ83h_iHcCVkkdvEy0fs_c";
-
-		Content content = createContent(regId, titulo, descricao);
-
-		POST2GCM.post(apiKey, content);
-
-	}
-
-	public static Content createContent(String regId, String titulo, String descricao){
-
-		Content c = new Content();
-
-		c.addRegId(regId);
-		c.createData(titulo, descricao);
-
-		return c;
-	}
+	
 
 
 }
