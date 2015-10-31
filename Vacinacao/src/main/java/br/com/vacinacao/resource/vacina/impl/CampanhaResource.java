@@ -61,9 +61,8 @@ public class CampanhaResource implements ICampanhaResource {
 
 				for (UsuarioVO usuarioVO : listaDeUsuarios) {
 
-					System.out.println(usuarioVO.getNome() + "\n" + campanha.getDescricao());
 
-					enviarNotificacao(usuarioVO.getRegId(), "Vacinação", campanha.getTitulo() + "\n" + campanha.getDescricao());
+					enviarNotificacao(usuarioVO.getRegId(), campanha.getTitulo(), campanha.getDescricao());
 
 				}
 
