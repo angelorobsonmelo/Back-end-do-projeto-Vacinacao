@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="vacinacao">
+<head>
+<meta charset="UTF-8">
+<title>Inicio</title>
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+<!-- depencia do angular-material -->
+<link rel="stylesheet"
+	href="bower_components/angular-material/angular-material.min.css"
+	media="all" />
+<link rel="stylesheet" href="style.css" media="all" />
+<link rel="stylesheet"
+	href="assets/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="assets/css/font.css">
+<link rel="stylesheet"
+	href="assets/css/angular-aside.css">
+<link rel="stylesheet" href="bower_components/angular-hamburger-toggle/dist/angular-hamburger-toggle.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+  <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header" >
+            <hamburger-toggle state="tgState" class="hamburger-toggle" ng-hide="esconderHeader"></hamburger-toggle>
+            <a class="navbar-brand" ng-bind="titulo">
+             
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidenav" ng-class="{open: tgState}">
+      <ul class="nav nav-pills nav-stacked">
+        <li role="presentation"   ng-class="{active: activetab == '/lista-de-unidades-de-saude'}"><a  ng-href="#/lista-de-unidades-de-saude" ng-click="mostrarMenuEscolhido()">Lista de Unidade de Saúde</a></li>
+        <li role="presentation" ng-class="{active: activetab == '/lista-de-unidades-de-saude-mapa'}"><a  ng-href="#/lista-de-unidades-de-saude-mapa" ng-click="mostrarMenuEscolhido()">Lista de Unidade De Saúde no Mapa</a></li>
+        <li role="presentation"><a href="#/">Sair</a></li>
+      </ul>
+    </div>
+
+    <div class="content" ng-class="{'sidenav-open': tgState}">
+    
+       <div ng-view></div>
+      
+
+     
+    </div>
+
+
+    <div class="clearfix"></div>
+
+
+
+
+	<!-- Dependencia do angular -->
+	<script src="bower_components/angular/angular.min.js"></script>
+
+	<!-- Route provider depencia -->
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-i18n/pt-br.js"></script>
+
+	<!-- Angular Material Dependencies -->
+	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+	<script
+		src="bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="bower_components/angular-material/angular-material.min.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+	<script
+		src="bower_components/angular-hamburger-toggle/dist/angular-hamburger-toggle.min.js"></script>
+	<!-- Google maps api -->
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaLNaNl7nZiLqFSgf4kXJdNjb3OOOJkKE">
+    </script>
+<script src="assets/js/ng-map.js"></script>
+
+	<!-- app geral -->
+	<script src="app.js"></script>
+
+	<!-- meus controllers e factories -->
+	<script src="partials/usuario/js/usuarioCtrl.js"></script>
+	<script src="partials/usuario/js/usuarioFactory.js"></script>
+
+	<script
+		src="partials/unidade-de-saude-lista/js/ListaUnidadeDeSaudeCtrl.js"></script>
+	<script
+		src="partials/unidade-de-saude-lista/js/ListaUnidadeDeSaudeFactory.js"></script>
+
+	<script
+		src="partials/unidade-de-saude-lista-mapa/js/ListaUnidadeDeSaudeMapaCtrl.js"></script>
+	<script
+		src="partials/unidade-de-saude-lista-mapa/js/ListaUnidadeDeSaudeMapaFactory.js"></script>
+
+	<script
+		src="partials/detalhes-unidade-de-saude/js/DetalhesUnidadeDeSaudeCtrl.js"></script>
+	<script
+		src="partials/detalhes-unidade-de-saude/js/DetalhesUnidadeDeSaudeFactory.js"></script>
+
+	<script
+		src="partials/ver-unidade-de-saude-no-mapa/js/VerUnidadeDeSaudeNoMapaCtrl.js"></script>
+	<script
+		src="partials/ver-unidade-de-saude-no-mapa/js/VerUnidadeDeSaudeNoMapaFactory.js"></script>
+
+	<script src="partials/rota/js/RotaCtrl.js"></script>
+	<script src="partials/rota/js/RotaFactory.js"></script>
+
+	<script src="partials/simple-map/js/SimpleMapCtrl.js"></script>
+	<script src="partials/simple-map/js/SimpleMapFactory.js"></script>
+
+	<script src="partials/login/js/LoginCtrl.js"></script>
+	<script src="partials/login/js/LoginFactory.js"></script>
+	
+	<script src="partials/cad-usuario/js/LoginFactory.js"></script>
+
+    <script src="partials/campanha/js/CampanhaCtrl.js"></script>
+    <script src="partials/campanha/js/CampanhaFactory.js"></script>
+    
+    <script src="partials/unidade-de-saude/js/UnidadeDeSaudeCtrl.js"></script>
+    <script src="partials/unidade-de-saude/js/UniadeDeSaudeFactory.js"></script>
+
+
+</body>
+</html>
