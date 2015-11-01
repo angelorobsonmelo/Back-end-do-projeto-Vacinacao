@@ -15,12 +15,11 @@ import javax.ws.rs.core.MediaType;
 import br.com.vacinacao.bo.vacina.impl.CampanhaBO;
 import br.com.vacinacao.dao.usuario.impl.UsuarioDAO;
 import br.com.vacinacao.excecao.BOException;
-import br.com.vacinacao.metodos.push.POST2GCM;
-import br.com.vacinacao.model.push.Content;
 import br.com.vacinacao.model.usuario.UsuarioVO;
 import br.com.vacinacao.model.vacina.CampanhaVO;
 import br.com.vacinacao.resource.util.ExecucaoResource;
 import br.com.vacinacao.resource.vacina.ICampanhaResource;
+import br.com.vacinacao.util.EnviarEmail;
 import br.com.vacinacao.util.EnviarNotificacao;
 
 
@@ -64,6 +63,7 @@ public class CampanhaResource implements ICampanhaResource {
 
 
 					EnviarNotificacao.enviarNotificacao(usuarioVO.getRegId(), campanha.getTitulo(), campanha.getDescricao());
+					EnviarEmail.enviarEmailParaAlertarAoUsuarioSobreCampanhas(usuarioVO, campanha);
 
 				}
 
@@ -179,7 +179,7 @@ public class CampanhaResource implements ICampanhaResource {
 		}
 	}
 
-	
+
 
 
 }
