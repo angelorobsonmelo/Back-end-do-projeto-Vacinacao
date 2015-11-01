@@ -129,4 +129,26 @@ public class NotificacaoVacinaUsuarioDoseResource implements INotificacaoVacinaU
 		}
 	}
 
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("buscarTodosPorSequencialUsuarioEVacina/{sequencialUsuario}/{sequencialVacina}")
+	public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodosPorSequencialUsuarioEVacina(@PathParam("sequencialUsuario") Integer sequencialUsuario,
+			@PathParam("sequencialVacina") Integer sequencialVacina) throws BOException, SQLException {
+try {
+			
+			notificacaoVacinaUsuarioDoseVO.getVacinaVO().setSequencial(sequencialVacina);
+			notificacaoVacinaUsuarioDoseVO.getUsuarioVO().setSequencial(sequencialUsuario);
+
+			return notificacaoVacinaUsuarioDoseBO.buscarTodosPorSequencialUsuarioEVacina(notificacaoVacinaUsuarioDoseVO);
+
+		} catch (Exception ex) {
+			throw new BOException(ex);
+		}
+		finally {
+
+			notificacaoVacinaUsuarioDoseBO = null;
+		}
+	}
+
 }

@@ -138,5 +138,19 @@ public class NotificacaoVacinaUsuarioDoseBO implements INotificacaoVacinaUsuario
 	}
 
 
+	public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodosPorSequencialUsuarioEVacina(
+			NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDose) throws BOException, SQLException {
+		try {
+
+			/*Setar o AutoCommit para False, validar toda a transação antes do Commit*/
+			Conexao.setarAutoCommitParaFalse();
+
+			return notificacaoVacinaUsuarioDoseDAO.buscarTodosPorSequencialUsuarioEVacina(notificacaoVacinaUsuarioDose);
+		} catch (Exception e) {
+			throw new BOException(e);
+		}
+	}
+
+
 
 }

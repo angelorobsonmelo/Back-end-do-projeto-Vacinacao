@@ -263,5 +263,39 @@ public class NotificacaoVacinaUsuarioDoseDAO implements INotificacaoVacinaUsuari
 		}
 	}
 
+	public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodosPorSequencialUsuarioEVacina(
+			NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDose) throws DAOException {
+		procedure = "{? = CALL SP_NOTIFICACAO_VACINA_USUARIO_DOSE_BUSCAR_TODOS_POR_SEQ_USU_E_V(?,?)}";
+		cstmt = null;
+		ArrayList<NotificacaoVacinaUsuarioDoseVO> lista = new ArrayList<NotificacaoVacinaUsuarioDoseVO>();
+
+		try
+		{
+			cstmt = Conexao.getConexao().prepareCall(procedure);
+			cstmt.registerOutParameter(1, Types.OTHER);
+			cstmt.setInt(2, VerificadorValorObjeto.retornaIntValorObjetoOuZero(notificacaoVacinaUsuarioDose.getUsuarioVO().getSequencial()));
+			cstmt.setInt(3, VerificadorValorObjeto.retornaIntValorObjetoOuZero(notificacaoVacinaUsuarioDose.getVacinaVO().getSequencial()));
+
+			cstmt.execute();
+
+			lista = mapearResultSet((ResultSet) cstmt.getObject(1));
+
+			cstmt.close();		
+
+			return lista;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new DAOException(ex);
+		} finally{        	
+			/*Indicar ao Garbage Collection do Java que as variáveis 
+			 * podem ser esvaziadas do Coletor de Lixo
+			 */        	
+			procedure = null;
+			cstmt = null;
+		}
+	}
+
 
 }
