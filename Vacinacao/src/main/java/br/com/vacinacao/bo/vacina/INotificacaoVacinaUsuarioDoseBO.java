@@ -16,6 +16,8 @@ public interface INotificacaoVacinaUsuarioDoseBO {
 
 	public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodosPorSequencialUsuario(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDose) throws BOException, SQLException;
 
+	public String removerPorSequencialVacinaEUsuario(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDoseVO) throws BOException, SQLException;
+	
 
 
 }

@@ -50,63 +50,83 @@ public class NotificacaoVacinaUsuarioDoseResource implements INotificacaoVacinaU
 
 
 
-@GET
-@Produces(MediaType.APPLICATION_JSON)
-@Path("listarTodas")
-public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodos() throws BOException, SQLException {
-	try {
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("listarTodas")
+	public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodos() throws BOException, SQLException {
+		try {
 
 
-		return notificacaoVacinaUsuarioDoseBO.buscarTodos();
+			return notificacaoVacinaUsuarioDoseBO.buscarTodos();
 
-	} catch (Exception ex) {
-		throw new BOException(ex);
+		} catch (Exception ex) {
+			throw new BOException(ex);
+		}
+		finally {
+
+			notificacaoVacinaUsuarioDoseBO = null;
+		}
 	}
-	finally {
 
-		notificacaoVacinaUsuarioDoseBO = null;
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("buscarTodosPorSequencialUsuario/{sequencialUsuario}")
+	public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodosPorSequencialUsuario(
+			@PathParam("sequencialUsuario") Integer sequencialUsuario) throws BOException, SQLException {
+		try {
+
+			notificacaoVacinaUsuarioDoseVO.getUsuarioVO().setSequencial(sequencialUsuario);
+
+			return notificacaoVacinaUsuarioDoseBO.buscarTodosPorSequencialUsuario(notificacaoVacinaUsuarioDoseVO);
+
+		} catch (Exception ex) {
+			throw new BOException(ex);
+		}
+		finally {
+
+			notificacaoVacinaUsuarioDoseBO = null;
+		}
 	}
-}
 
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	@Path("salvar")
+	public String salvar(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDoseVO) throws BOException, SQLException {
+		try {
 
-@GET
-@Produces(MediaType.APPLICATION_JSON)
-@Path("buscarTodosPorSequencialUsuario/{sequencialUsuario}")
-public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodosPorSequencialUsuario(
-		@PathParam("sequencialUsuario") Integer sequencialUsuario) throws BOException, SQLException {
-	try {
+			return notificacaoVacinaUsuarioDoseBO.salvar(notificacaoVacinaUsuarioDoseVO);
 
-		notificacaoVacinaUsuarioDoseVO.getUsuarioVO().setSequencial(sequencialUsuario);
+		} catch (Exception ex) {
+			throw new BOException(ex);
+		}
+		finally {
 
-		return notificacaoVacinaUsuarioDoseBO.buscarTodosPorSequencialUsuario(notificacaoVacinaUsuarioDoseVO);
-
-	} catch (Exception ex) {
-		throw new BOException(ex);
+			notificacaoVacinaUsuarioDoseBO = null;
+		}
 	}
-	finally {
 
-		notificacaoVacinaUsuarioDoseBO = null;
+
+	@Produces(MediaType.TEXT_PLAIN)
+	@DELETE
+	@Path("removerPorSequencialVacinaEUsuario/{sequencialVacina}/{sequencialUsuario}")
+	public String removerPorSequencialVacinaEUsuario(@PathParam("sequencialVacina") Integer sequencialVacina, @PathParam("sequencialUsuario") Integer sequencialUsuario)
+			throws BOException, SQLException {
+		try {
+			
+			notificacaoVacinaUsuarioDoseVO.getVacinaVO().setSequencial(sequencialVacina);
+			notificacaoVacinaUsuarioDoseVO.getUsuarioVO().setSequencial(sequencialUsuario);
+
+			return notificacaoVacinaUsuarioDoseBO.removerPorSequencialVacinaEUsuario(notificacaoVacinaUsuarioDoseVO);
+
+		} catch (Exception ex) {
+			throw new BOException(ex);
+		}
+		finally {
+
+			notificacaoVacinaUsuarioDoseBO = null;
+		}
 	}
-}
-
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.TEXT_PLAIN)
-@POST
-@Path("salvar")
-public String salvar(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDoseVO) throws BOException, SQLException {
-	try {
-
-
-
-		return notificacaoVacinaUsuarioDoseBO.salvar(notificacaoVacinaUsuarioDoseVO);
-
-	} catch (Exception ex) {
-		throw new BOException(ex);
-	}
-	finally {
-
-		notificacaoVacinaUsuarioDoseBO = null;
-	}
-}
 
 }

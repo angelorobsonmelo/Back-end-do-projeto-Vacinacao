@@ -229,5 +229,39 @@ public class NotificacaoVacinaUsuarioDoseDAO implements INotificacaoVacinaUsuari
 		return lista;
 	}
 
+	public String removerPorSequencialVacinaEUsuario(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDoseVO)
+			throws DAOException {
+		procedure = "{ ? = CALL SP_NOTIFICACAO_VACINA_USUARIO_DOSE_REMOVER_POR_SEQ_USU_E_SEQ_VA(?,?)}";
+		cstmt = null;
+		resultado = null;
+
+		try
+		{
+
+			cstmt = Conexao.getConexao().prepareCall(procedure);
+			cstmt.registerOutParameter(1, Types.VARCHAR);
+			cstmt.setInt(2, VerificadorValorObjeto.retornaIntValorObjetoOuZero(notificacaoVacinaUsuarioDoseVO.getVacinaVO().getSequencial()));
+			cstmt.setInt(3, VerificadorValorObjeto.retornaIntValorObjetoOuZero(notificacaoVacinaUsuarioDoseVO.getUsuarioVO().getSequencial()));
+
+			
+			
+			cstmt.execute();
+
+			resultado = (String) cstmt.getString(1);
+			cstmt.close();
+
+			return resultado;
+		}
+		catch(Exception ex)
+		{
+			throw new DAOException(ex);
+		}
+		finally{
+
+			procedure = null;
+			cstmt = null;
+		}
+	}
+
 
 }

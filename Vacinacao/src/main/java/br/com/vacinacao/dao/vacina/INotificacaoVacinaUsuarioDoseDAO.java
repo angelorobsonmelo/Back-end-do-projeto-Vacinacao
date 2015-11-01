@@ -15,4 +15,7 @@ public interface INotificacaoVacinaUsuarioDoseDAO {
 	
 	public ArrayList<NotificacaoVacinaUsuarioDoseVO> buscarTodosPorSequencialUsuario(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDose) throws DAOException;
 	
+	public String removerPorSequencialVacinaEUsuario(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDoseVO) throws DAOException;
+	
+
 }

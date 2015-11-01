@@ -106,5 +106,37 @@ public class NotificacaoVacinaUsuarioDoseBO implements INotificacaoVacinaUsuario
 	}
 
 
+	public String removerPorSequencialVacinaEUsuario(NotificacaoVacinaUsuarioDoseVO notificacaoVacinaUsuarioDoseVO)
+			throws BOException, SQLException {
+		String resultadoExecucaoInserirOuAtualizarVacina = null;
+
+		try{	
+			/*Setar o AutoCommit para False, validar toda a transação antes do Commit*/
+			Conexao.setarAutoCommitParaFalse();
+
+			resultadoExecucaoProcedures.clear();
+
+			resultadoExecucaoInserirOuAtualizarVacina =  notificacaoVacinaUsuarioDoseDAO.removerPorSequencialVacinaEUsuario(notificacaoVacinaUsuarioDoseVO);
+			resultadoExecucaoProcedures.add(resultadoExecucaoInserirOuAtualizarVacina);
+
+			if (!resultadoExecucaoInserirOuAtualizarVacina.equals("OK")){
+				throw new BOException("Erro ao inserir unidade de saúde. "+resultadoExecucaoInserirOuAtualizarVacina);
+			}
+
+			return Conexao.verificarResultadosDaExecucaoDeProceduresValidandoCommit(resultadoExecucaoProcedures);
+
+		}catch (Exception ex) { 
+			/*Preferivel que seja dado um Rollback neste caso*/
+
+			throw new BOException(ex);
+		}
+		finally{
+			resultadoExecucaoInserirOuAtualizarVacina = null;
+			resultadoExecucaoProcedures.clear();
+
+		}
+	}
+
+
 
 }
