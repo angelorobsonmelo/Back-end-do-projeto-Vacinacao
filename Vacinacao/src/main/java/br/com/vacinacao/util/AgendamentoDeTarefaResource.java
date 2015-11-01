@@ -35,7 +35,7 @@ public class AgendamentoDeTarefaResource {
 			Trigger trigger = TriggerBuilder.newTrigger()
 					.withSchedule(  
 							SimpleScheduleBuilder.simpleSchedule()
-							.withIntervalInMilliseconds(1000)
+							.withIntervalInMinutes(1)
 							.repeatForever())
 					.build();  
 
